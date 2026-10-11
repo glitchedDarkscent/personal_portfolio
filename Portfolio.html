@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title> Harshil Dalal — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F3F4F1;
+    --paper-raised: #EAEBE6;
+    --ink: #14181B;
+    --muted: #5C6660;
+    --accent: #1E6F5C;
+    --accent-soft: #DCEAE5;
+    --line: #D3D6CE;
+    --radius: 3px;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #14181B;
+      --paper-raised: #1B2023;
+      --ink: #EDEFEA;
+      --muted: #9AA39C;
+      --accent: #4FBE9E;
+      --accent-soft: #1D2E29;
+      --line: #2A302B;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #14181B;
+    --paper-raised: #1B2023;
+    --ink: #EDEFEA;
+    --muted: #9AA39C;
+    --accent: #4FBE9E;
+    --accent-soft: #1D2E29;
+    --line: #2A302B;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: "IBM Plex Mono", "SFMono-Regular", monospace; }
+  .placeholder { color: var(--accent); }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 28px; }
+
+  header.top {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 28px 0; flex-wrap: wrap; gap: 12px;
+  }
+  header.top .mark { font-weight: 600; letter-spacing: 0.02em; }
+  header.top nav { display: flex; gap: 20px; font-size: 0.9rem; flex-wrap: wrap; }
+  header.top nav a { color: var(--muted); text-decoration: none; }
+  header.top nav a:hover, header.top nav a:focus-visible { color: var(--ink); }
+
+  section { padding: 60px 0; border-top: 1px solid var(--line); }
+  section:first-of-type { border-top: none; }
+
+  .hero { padding-top: 36px; padding-bottom: 70px; }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5.6vw, 3.8rem);
+    line-height: 1.08;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    max-width: 16ch;
+  }
+  .hero .lede { max-width: 56ch; font-size: 1.12rem; color: var(--muted); margin: 0 0 26px; }
+  .hero .meta { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.88rem; color: var(--muted); }
+  .hero .meta span { display: inline-flex; align-items: center; gap: 8px; }
+  .hero .meta .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; }
+
+  .hero-top { display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap-reverse; }
+  .hero-text { flex: 1 1 380px; min-width: 0; }
+  .hero-photo {
+    flex: 0 0 auto;
+    width: 132px; height: 132px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    background: var(--paper-raised);
+    display: flex; align-items: center; justify-content: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-align: center;
+    padding: 10px;
+  }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  @media (max-width: 560px) {
+    .hero-photo { width: 96px; height: 96px; }
+  }
+
+  .reveal { opacity: 0; transform: translateY(10px); animation: rise 0.7s ease-out forwards; }
+  .reveal.d1 { animation-delay: 0.08s; }
+  .reveal.d2 { animation-delay: 0.18s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  h2.section-title {
+    font-size: 1.05rem; font-weight: 600; margin: 0 0 30px;
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  h2.section-title .idx { font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; color: var(--muted); }
+
+  /* About */
+  .about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 44px; }
+  .about-grid p { max-width: 58ch; color: var(--ink); }
+  .about-grid p + p { margin-top: 14px; }
+  .facts { list-style: none; margin: 0; padding: 0; font-size: 0.92rem; }
+  .facts li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .facts li:first-child { padding-top: 0; }
+  .facts li span:first-child { color: var(--muted); }
+  .facts li span:last-child { text-align: right; }
+  @media (max-width: 680px) {
+    .about-grid { grid-template-columns: 1fr; gap: 26px; }
+    .facts li span:last-child { text-align: right; max-width: 60%; }
+  }
+
+  /* Education */
+  .edu-entry { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .edu-entry:last-child { border-bottom: none; }
+  .edu-top { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: baseline; }
+  .edu-top h3 { margin: 0; font-size: 1.08rem; font-weight: 600; }
+  .edu-top .when { font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+  .edu-entry .sub { color: var(--muted); font-size: 0.92rem; margin: 4px 0 8px; }
+  .edu-entry p.desc { margin: 0; max-width: 62ch; font-size: 0.94rem; }
+
+  /* Experience */
+  .job-entry { padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .job-entry:last-child { border-bottom: none; }
+  .job-top { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: baseline; }
+  .job-top h3 { margin: 0; font-size: 1.12rem; font-weight: 600; }
+  .job-top .when { font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+  .job-entry .sub { color: var(--muted); font-size: 0.92rem; margin: 4px 0 12px; }
+  .job-entry ul.feats { margin: 0; padding: 0; list-style: none; font-size: 0.92rem; }
+  .job-entry ul.feats li { position: relative; padding: 5px 0 5px 16px; }
+  .job-entry ul.feats li::before {
+    content: ""; position: absolute; left: 0; top: 13px;
+    width: 5px; height: 5px; background: var(--accent); border-radius: 50%;
+  }
+  .add-more { color: var(--muted); font-size: 0.85rem; font-style: italic; padding-top: 14px; }
+
+  /* Skills */
+  .stack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 26px; }
+  .stack-cat .label { font-family: "IBM Plex Mono", monospace; font-size: 0.75rem; color: var(--muted); margin-bottom: 10px; }
+  .stack-cat ul { list-style: none; margin: 0; padding: 0; }
+  .stack-cat li { padding: 4px 0; font-size: 0.95rem; }
+
+  /* Projects */
+  .project { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; background: var(--paper-raised); }
+  .project + .project { margin-top: 16px; }
+  .project-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+  .project h3 { font-size: 1.08rem; margin: 0 0 6px; font-weight: 600; }
+  .project .tag {
+    font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; color: var(--accent);
+    background: var(--accent-soft); padding: 4px 9px; border-radius: 2px; white-space: nowrap;
+  }
+  .project p.desc { color: var(--ink); max-width: 66ch; margin: 0 0 10px; font-size: 0.94rem; }
+  .project .links { font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; }
+  .project .links a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); }
+  .project .links a:hover, .project .links a:focus-visible { color: var(--accent); border-color: var(--accent); }
+
+  footer { padding: 52px 0 76px; border-top: 1px solid var(--line); }
+  footer h2.section-title { margin-bottom: 16px; }
+  footer p.lede { color: var(--muted); max-width: 50ch; margin: 0 0 24px; }
+  .contact-row { display: flex; flex-wrap: wrap; gap: 14px 30px; }
+  .contact-row a { color: var(--ink); text-decoration: none; font-size: 0.98rem; border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
+  .contact-row a:hover, .contact-row a:focus-visible { color: var(--accent); }
+  .fine { margin-top: 36px; font-size: 0.8rem; color: var(--muted); }
+
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <span class="mark mono placeholder">Harshil Dalal</span>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <!-- Replace the name and tagline with your own. Keep it to one sentence that says what you do / are studying. -->
+  <section class="hero">
+    <div class="hero-top">
+      <div class="hero-text">
+        <h1 class="reveal"><span class="placeholder"> Harshil Dalal</span> — <span class="placeholder">CS student building things I actually use </span></h1>
+        <p class="lede reveal d1"><span class="placeholder"> Studying Computer Computer Science with applied Mathematics from Adani University, Always open for challanges. Building Things that actually works for myself </span></p>
+        <div class="meta reveal d2">
+          <span><span class="dot"></span><span class="placeholder"> Surat, GUjarat, India</span></span>
+          <span class="mono placeholder">1st year B.Tech srudent</span>
+          <span class="mono placeholder">Working on myself</span>
+        </div>
+      </div>
+      <!-- Replace this div with: <div class="hero-photo"><img src="your-photo.jpg" alt="[Your Name]"></div> -->
+      <div class="hero-photo"><img src="C:\Users\dellD\Desktop\harshil\additional\portfolio\portfolio_repo\pfp.jpeg" alt="Harshil Dalal"></div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about">
+    <h2 class="section-title"><span class="idx mono">01</span>About</h2>
+    <div class="about-grid">
+      <div>
+        <p><span class="placeholder">[Write 2–3 short paragraphs about yourself: your background, how you got into CS/development, and what you care about as a developer. Avoid buzzwords — be specific about what you actually do and enjoy.]</span></p>
+        <p><span class="placeholder">[Second paragraph — e.g. what you're currently learning, a habit or approach to work you're proud of, or what you want to do next.]</span></p>
+      </div>
+      <ul class="facts">
+        <li><span>Based in</span><span class="placeholder">Surat, Gujarat</span></li>
+        <li><span>Studying</span><span class="placeholder">B.Tech in Computer Science, Adani University</span></li>
+        <li><span>Focus</span><span class="placeholder">frontend, web dev</span></li>
+        <li><span>Languages</span><span class="placeholder">HTML, CSS, JS</span></li>
+        <li><span>Currently</span><span class="placeholder">Studying and improving myself</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ EDUCATION ============ -->
+  <!-- Add one .edu-entry block per school. Copy the block to add more (e.g. high school below college). -->
+  <section id="education">
+    <h2 class="section-title"><span class="idx mono">02</span>Education</h2>
+
+    <div class="edu-entry">
+      <div class="edu-top">
+        <h3 class="placeholder">B.Tech in Computer Science and Applied Maths</h3>
+        <span class="when placeholder">2026 — 2030</span>
+      </div>
+      <div class="sub placeholder">Adani University, Ahmedabad</div>
+      <p class="desc placeholder">Cognitive Ai Prompt Engineering Course, Skill India YUVA AI for all Course</p>
+    </div>
+
+    <!-- Copy the .edu-entry block above for additional schools -->
+    <div class="edu-entry">
+      <div class="edu-top">
+        <h3 class="placeholder">Bhulka Bhavan School</h3>
+        <span class="when placeholder">2012 - 2024</span>
+      </div>
+      <div class="sub placeholder">Surat</div>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE ============ -->
+  <!-- One .job-entry per role. Fill in the JAD role here, and copy the block for any other work/internships. -->
+  <section id="experience">
+    <h2 class="section-title"><span class="idx mono">03</span>Experience</h2>
+
+    <div class="job-entry">
+      <div class="job-top">
+        <h3 class="placeholder">Developing Intranet software at Jayesh A Dalal Planning and engg. services pvt ltd</h3>
+        <span class="when placeholder">Apr 2026 — Present</span>
+      </div>
+      <div class="sub placeholder">Jayesh A Dalal Planning and Engineering services pvt. ltd., Surat, India</div>
+      <ul class="feats">
+        <li class="placeholder">Built and maintain the firm's internal project management suite</li>
+        <li class="placeholder">Designed internal mangement systems from scratch</li>
+        <li class="placeholder">Migrated storage from flat JSON to SQLite</li>
+      </ul>
+    </div>
+
+    <!-- Copy the .job-entry block above for additional roles, internships, or freelance work -->
+    <p class="add-more"></p>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <!-- Fill each category with your real skills. Delete a category if it doesn't apply, or add a new .stack-cat block. -->
+  <section id="skills">
+    <h2 class="section-title"><span class="idx mono">04</span>Skills</h2>
+    <div class="stack-grid">
+      <div class="stack-cat">
+        <div class="label mono">languages</div>
+        <ul>
+          <li class="placeholder">JavaScript</li>
+          <li class="placeholder">HTML5</li>
+          <li class="placeholder">CSS3</li>
+        </ul>
+      </div>
+      <div class="stack-cat">
+        <div class="label mono">frameworks &amp; tools</div>
+        <ul>
+          <li class="placeholder">Node.js, Express</li>
+          <li class="placeholder">React</li>
+          <li class="placeholder">Git</li>
+        </ul>
+      </div>
+      <div class="stack-cat">
+        <div class="label mono">data</div>
+        <ul>
+          <li class="placeholder">SQLite</li>
+          <li class="placeholder">JSON, REST APIs</li>
+        </ul>
+      </div>
+      <div class="stack-cat">
+        <div class="label mono">currently learning</div>
+        <ul>
+          <li class="placeholder">Python, Game Designing</li>
+          <li class="placeholder">Cloud Deployment</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <!-- Personal / side projects go here — schoolwork, hackathons, things you built for fun. Copy the .project block to add more, or delete the section if you don't have any yet. -->
+  <section id="projects">
+    <h2 class="section-title"><span class="idx mono">05</span>Projects</h2>
+
+    <div class="project">
+      <div class="project-top">
+        <h3 class="placeholder">Desktop Agent</h3>
+        <span class="tag placeholder">Project for Employee monitoring</span>
+      </div>
+      <p class="desc placeholder">Desktop Agent that captures screen on order and Recognizes app usage history and executes remote command,learned a bit of python</p>
+      <div class="links placeholder">[Not yet online] · </div>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <h3 class="placeholder">Restaurants sample Landing pages</h3>
+        <span class="tag placeholder">Website</span>
+      </div>
+      <p class="desc placeholder">Samples for different purposes</p>
+      <div class="links placeholder">[delightsample.vercel.app] [lindensample.vercel.app] [maresample.vercel.app] [sablesample.vercel.app]</div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <footer id="contact">
+    <h2 class="section-title"><span class="idx mono">06</span>Get in touch</h2>
+    <p class="lede placeholder">Open to connect and network</p>
+    <div class="contact-row">
+      <a href="mailto:you@example.com" class="placeholder">harshildalal19118@gmail.com</a>
+      <a href="https://github.com/yourhandle" class="placeholder">https://github.com/glitchedDarkscent</a>
+      <a href="https://linkedin.com/in/yourhandle" class="placeholder">https://www.linkedin.com/in/harshil-dalal-68b59340b/</a>
+      <a href="#" class="placeholder"></a>
+    </div>
+    <p class="fine">© <span class="placeholder">2026</span> <span class="placeholder">Harshil Dalal</span></p>
+  </footer>
+
+</div>
+</body>
+</html>
