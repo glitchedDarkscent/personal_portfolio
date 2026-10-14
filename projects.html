@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Projects — Harshil Dalal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F3F4F1;
+    --paper-raised: #EAEBE6;
+    --ink: #14181B;
+    --muted: #5C6660;
+    --accent: #1E6F5C;
+    --accent-soft: #DCEAE5;
+    --line: #D3D6CE;
+    --radius: 3px;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #14181B;
+      --paper-raised: #1B2023;
+      --ink: #EDEFEA;
+      --muted: #9AA39C;
+      --accent: #4FBE9E;
+      --accent-soft: #1D2E29;
+      --line: #2A302B;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #14181B;
+    --paper-raised: #1B2023;
+    --ink: #EDEFEA;
+    --muted: #9AA39C;
+    --accent: #4FBE9E;
+    --accent-soft: #1D2E29;
+    --line: #2A302B;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: "IBM Plex Mono", "SFMono-Regular", monospace; }
+  .placeholder { color: var(--accent); }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 28px; }
+
+  header.top {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 28px 0; flex-wrap: wrap; gap: 12px;
+  }
+  header.top .mark { font-weight: 600; letter-spacing: 0.02em; }
+  header.top nav { display: flex; gap: 20px; font-size: 0.9rem; flex-wrap: wrap; }
+  header.top nav a { color: var(--muted); text-decoration: none; }
+  header.top nav a:hover, header.top nav a:focus-visible { color: var(--ink); }
+
+  section { padding: 60px 0; border-top: 1px solid var(--line); }
+  section:first-of-type { border-top: none; }
+
+  .hero { padding-top: 36px; padding-bottom: 70px; }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5.6vw, 3.8rem);
+    line-height: 1.08;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    max-width: 16ch;
+  }
+  .hero .lede { max-width: 56ch; font-size: 1.12rem; color: var(--muted); margin: 0 0 26px; }
+  .hero .meta { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.88rem; color: var(--muted); }
+  .hero .meta span { display: inline-flex; align-items: center; gap: 8px; }
+  .hero .meta .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; }
+
+  .hero-top { display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap-reverse; }
+  .hero-text { flex: 1 1 380px; min-width: 0; }
+  .hero-photo {
+  flex: 0 0 auto;
+  width: 132px; height: 132px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  background: var(--paper-raised);
+  display: flex; align-items: center; justify-content: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-align: center;
+  padding: 0;            /* was 10px, this caused the inset */
+}
+.hero-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;  /* keeps your face in frame; adjust if needed */
+  border-radius: 50%;
+  display: block;
+}
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  @media (max-width: 560px) {
+    .hero-photo { width: 96px; height: 96px; }
+  }
+
+  .reveal { opacity: 0; transform: translateY(10px); animation: rise 0.7s ease-out forwards; }
+  .reveal.d1 { animation-delay: 0.08s; }
+  .reveal.d2 { animation-delay: 0.18s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  h2.section-title {
+    font-size: 1.05rem; font-weight: 600; margin: 0 0 30px;
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  h2.section-title .idx { font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; color: var(--muted); }
+
+  /* Projects page */
+  .page-intro { padding-top: 36px; padding-bottom: 40px; }
+  .page-intro h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; margin: 0 0 14px; font-weight: 700; letter-spacing: -0.01em; }
+  .page-intro p { margin: 0; max-width: 56ch; color: var(--muted); font-size: 1.05rem; }
+
+  .project { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; background: var(--paper-raised); }
+  .project + .project { margin-top: 20px; }
+  .project-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+  .project h3 { font-size: 1.2rem; margin: 0; font-weight: 600; }
+  .project .tag {
+    font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; color: var(--accent);
+    background: var(--accent-soft); padding: 4px 9px; border-radius: 2px; white-space: nowrap;
+  }
+  .project p.desc { margin: 0 0 14px; max-width: 66ch; font-size: 0.96rem; }
+
+  .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 18px; }
+  .shot {
+    position: relative; aspect-ratio: 16 / 10; overflow: hidden; cursor: zoom-in; padding: 0;
+    border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper);
+  }
+  .shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
+  .shot:hover img, .shot:focus-visible img { transform: scale(1.03); }
+  .shot.empty { cursor: default; display: flex; align-items: center; justify-content: center; }
+  .shot.empty img { display: none; }
+  .shot.empty::after { content: "add screenshot"; font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; color: var(--muted); }
+
+  .stack { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; padding: 0; list-style: none; }
+  .stack li { font-family: "IBM Plex Mono", monospace; font-size: 0.74rem; color: var(--muted); border: 1px solid var(--line); border-radius: 2px; padding: 3px 8px; background: var(--paper); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 8px 18px; font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; }
+  .links a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); }
+  .links a:hover, .links a:focus-visible { color: var(--accent); border-color: var(--accent); }
+  .links .note { color: var(--muted); }
+
+  footer { padding: 40px 0 76px; border-top: 1px solid var(--line); }
+  footer a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); font-size: 0.85rem; padding-bottom: 2px; }
+  footer a:hover, footer a:focus-visible { color: var(--accent); border-color: var(--accent); }
+
+  dialog#lightbox { border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); padding: 8px; max-width: 94vw; }
+  dialog#lightbox::backdrop { background: rgba(0, 0, 0, 0.65); }
+  dialog#lightbox img { display: block; max-width: 100%; max-height: 86vh; margin: 0 auto; }
+
+  /* ---------- Interactive grid background ---------- */
+  #grid-bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; display: block; }
+  .wrap { position: relative; z-index: 1; }
+
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<canvas id="grid-bg" aria-hidden="true"></canvas>
+<div class="wrap">
+
+  <header class="top">
+    <a class="mark mono placeholder" href="index.html" style="text-decoration:none">Harshil Dalal</a>
+    <nav>
+      <a href="index.html">&larr; Home</a>
+    </nav>
+  </header>
+
+  <section class="page-intro">
+    <h1 class="reveal">Projects</h1>
+    <p class="reveal d1">Things I've built, what they do and what I used. Click a screenshot to enlarge it.</p>
+  </section>
+
+  <section>
+    <!--
+      HOW TO ADD A PROJECT: copy one whole <article class="project"> block below and paste it after the last one.
+      Images: put files in an "images" folder next to this page and change the src paths.
+      Fewer screenshots? Delete extra <button class="shot"> lines. Missing images show an "add screenshot" box.
+    -->
+
+    <article class="project">
+      <div class="project-top">
+        <h3>Desktop Agent</h3>
+        <span class="tag">Employee monitoring</span>
+      </div>
+      <div class="shots">
+        <button class="shot" type="button"><img src="images/desktop-agent-1.png" alt="Desktop Agent screenshot 1" onerror="this.parentElement.classList.add('empty')"></button>
+        <button class="shot" type="button"><img src="images/desktop-agent-2.png" alt="Desktop Agent screenshot 2" onerror="this.parentElement.classList.add('empty')"></button>
+        <button class="shot" type="button"><img src="images/desktop-agent-3.png" alt="Desktop Agent screenshot 3" onerror="this.parentElement.classList.add('empty')"></button>
+      </div>
+      <p class="desc">A desktop agent that captures the screen on request, records app usage history and executes remote commands. It was my first real project in Python.</p>
+      <ul class="stack"><li>Python</li><li>Node.js</li></ul>
+      <div class="links"><span class="note">Internal tool &middot; not yet online</span></div>
+    </article>
+
+    <article class="project">
+      <div class="project-top">
+        <h3>Restaurant sample landing pages</h3>
+        <span class="tag">Websites</span>
+      </div>
+      <div class="shots">
+        <button class="shot" type="button"><img src="images/restaurant-1.png" alt="Restaurant landing page sample 1" onerror="this.parentElement.classList.add('empty')"></button>
+        <button class="shot" type="button"><img src="images/restaurant-2.png" alt="Restaurant landing page sample 2" onerror="this.parentElement.classList.add('empty')"></button>
+        <button class="shot" type="button"><img src="images/restaurant-3.png" alt="Restaurant landing page sample 3" onerror="this.parentElement.classList.add('empty')"></button>
+        <button class="shot" type="button"><img src="images/restaurant-4.png" alt="Restaurant landing page sample 4" onerror="this.parentElement.classList.add('empty')"></button>
+      </div>
+      <p class="desc">Four sample landing pages for different restaurant styles, made as samples for different purposes.</p>
+      <ul class="stack"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Vercel</li></ul>
+      <div class="links">
+        <a href="https://delightsample.vercel.app" target="_blank" rel="noopener noreferrer">Delight &nearr;</a>
+        <a href="https://lindensample.vercel.app" target="_blank" rel="noopener noreferrer">Linden &nearr;</a>
+        <a href="https://maresample.vercel.app" target="_blank" rel="noopener noreferrer">Mare &nearr;</a>
+        <a href="https://sablesample.vercel.app" target="_blank" rel="noopener noreferrer">Sable &nearr;</a>
+      </div>
+    </article>
+  </section>
+
+  <footer>
+    <a href="index.html">&larr; Back to home</a>
+  </footer>
+
+</div>
+
+<dialog id="lightbox" aria-label="Screenshot preview"><img alt=""></dialog>
+
+<script src="grid.js"></script>
+<script>
+(function () {
+  var dlg = document.getElementById('lightbox');
+  var big = dlg.querySelector('img');
+  document.querySelectorAll('.shot').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (btn.classList.contains('empty')) return;
+      var img = btn.querySelector('img');
+      big.src = img.src; big.alt = img.alt;
+      dlg.showModal();
+    });
+  });
+  dlg.addEventListener('click', function () { dlg.close(); });
+})();
+</script>
+</body>
+</html>
